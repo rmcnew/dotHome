@@ -1,0 +1,27 @@
+startup_message off
+termcapinfo term* ti@:te@
+term xterm-256color
+altscreen on
+unsetenv DISPLAY
+vbell off
+defscrollback 9000
+hardstatus alwayslastline
+hardstatus string "%{= kw}%-w%{= BW}%n %t%{-}%+w %-= @%H - %LD %d %LM - %c"
+activity "Activity in %t(%n)"
+nonblock on
+escape ``
+bind h prev
+bind l next
+## do not trash BackSpace, usually DEL
+bindkey -k kb
+bindkey -d -k kb
+## do not trash Delete, usually ESC [ 3 ~
+bindkey -k kD
+bindkey -d -k kD
+
+# remove flow control bindings
+bind ^Q
+bind q
+bind ^S
+bind s 
+#
