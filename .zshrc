@@ -9,13 +9,16 @@ fi
 AUTO_TITLE_SCREENS="NO"
 
 #### aliases ####
-alias screen="/usr/bin/screen -R -D -A"
 alias bc='bc -l'
 alias ll='ls -lah'
 alias ls='ls -F -G'
 alias vim='vim -p'
 alias view='vim -R -p'
 alias vimdiff='vim -d'
+alias make='make -j4'
+alias pbrt='/home/rmcnew/cs6400/pbrt-v3/src/build/pbrt'
+alias newscreen='screen -S mcnew-desktop'
+alias screen='screen -x mcnew-desktop'
 
 #### exports ####
 # generic #
@@ -26,9 +29,7 @@ export VISUAL='vim'
 export ZLS_COLORS="$LS_COLORS"
 export SCREENRC=~/.screenrc
 export COLORFGBG="default;default"
-export PATH="/home/rmcnew/bin:/bin:/usr/bin:/usr/local/bin:/usr/X11R6/bin:/sbin:/usr/sbin:/usr/local/sbin:/usr/local/texlive/2011/bin/x86_64-darwin"
-export GROOVY_HOME='/usr/local/Cellar/groovy/1.8.2/libexec'
-export NODE_PATH='/usr/local/lib/node_modules'
+export PATH="/home/rmcnew/bin:/bin:/usr/bin:/usr/local/bin:/usr/X11R6/bin:/sbin:/usr/sbin:/usr/local/sbin:/opt/clion-2016.3.2/bin"
 
 #### zsh key bindings ####
 bindkey '^[[3~' delete-char

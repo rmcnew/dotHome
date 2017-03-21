@@ -99,7 +99,6 @@ endif
 autocmd FileType make set noexpandtab shiftwidth=8
 autocmd FileType c,cpp,slang set cindent
 autocmd FileType perl,css set smartindent
-autocmd FileType html,xml,xsl,xsd source ~/.vim/scripts/closetag.vim
 
 noremap <space> <pagedown>
 noremap <bs> <pageup>

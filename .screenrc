@@ -1,27 +1,40 @@
 startup_message off
 termcapinfo term* ti@:te@
-term xterm-256color
+term xterm
 altscreen on
-unsetenv DISPLAY
 vbell off
-defscrollback 9000
+defscroolback 50000
+defutf8 on
 hardstatus alwayslastline
-hardstatus string "%{= kw}%-w%{= BW}%n %t%{-}%+w %-= @%H - %LD %d %LM - %c"
+hardstatus string "%{= ks}%-w{w= bW}%n %t%{-}%+w %-= @%H - %LD %d %LM - %c"
 activity "Activity in %t(%n)"
 nonblock on
+nethack on
+multiuser on
+shelltitle "zsh"
 escape ``
 bind h prev
 bind l next
-## do not trash BackSpace, usually DEL
+## do not trash backspace
 bindkey -k kb
 bindkey -d -k kb
-## do not trash Delete, usually ESC [ 3 ~
+## do not trash delete
 bindkey -k kD
 bindkey -d -k kD
-
 # remove flow control bindings
 bind ^Q
 bind q
 bind ^S
-bind s 
-#
+bind s
+# create default windows
+screen -t zsh zsh
+screen -t zsh zsh
+screen -t zsh zsh
+screen -t zsh zsh
+screen -t zsh zsh
+screen -t zsh zsh
+screen -t zsh zsh
+screen -t zsh zsh
+screen -t zsh zsh
+screen -t zsh zsh
+select 0
