@@ -1,13 +1,3 @@
-#.zshrc
-# amazon env vars
-
-# profile
-if [ -f /etc/profile ]; then
-        source /etc/profile
-fi
-
-AUTO_TITLE_SCREENS="NO"
-
 #### aliases ####
 alias bc='bc -l'
 alias ll='ls -lah'
@@ -16,9 +6,6 @@ alias vim='vim -p'
 alias view='vim -R -p'
 alias vimdiff='vim -d'
 alias make='make -j4'
-alias pbrt='/home/rmcnew/cs6400/pbrt-v3/src/build/pbrt'
-alias newscreen='screen -S mcnew-desktop'
-alias screen='screen -x mcnew-desktop'
 
 #### exports ####
 # generic #
@@ -29,7 +16,7 @@ export VISUAL='vim'
 export ZLS_COLORS="$LS_COLORS"
 export SCREENRC=~/.screenrc
 export COLORFGBG="default;default"
-export PATH="/home/rmcnew/bin:/bin:/usr/bin:/usr/local/bin:/usr/X11R6/bin:/sbin:/usr/sbin:/usr/local/sbin:/opt/clion-2016.3.2/bin"
+export PATH="/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/local/bin:/data/data/com.termux/files/home/bin:/data/data/com.termux/files/usr/opt/texlive/2017/bin/custom:/data/data/com.termux/files/usr/top/texlive/2017/bin/pkg"
 
 #### zsh key bindings ####
 bindkey '^[[3~' delete-char
