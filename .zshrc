@@ -16,7 +16,7 @@ export VISUAL='vim'
 export ZLS_COLORS="$LS_COLORS"
 export SCREENRC=~/.screenrc
 export COLORFGBG="default;default"
-export PATH="/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/local/bin:/data/data/com.termux/files/home/bin:/data/data/com.termux/files/usr/opt/texlive/2017/bin/custom:/data/data/com.termux/files/usr/top/texlive/2017/bin/pkg"
+export PATH="/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/local/bin:/data/data/com.termux/files/home/bin:/data/data/com.termux/files/usr/opt/texlive/2017/bin/custom"
 
 #### zsh key bindings ####
 bindkey '^[[3~' delete-char
