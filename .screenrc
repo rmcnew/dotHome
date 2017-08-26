@@ -6,7 +6,7 @@ vbell off
 defscroolback 50000
 defutf8 on
 hardstatus alwayslastline
-hardstatus string "%{= ks}%-w{w= bW}%n %t%{-}%+w %-= @%H - %LD %d %LM - %c"
+hardstatus string "%{= ks}%n %t%{-}%+w %-= @%H - %LD %d %LM - %c"
 activity "Activity in %t(%n)"
 nonblock on
 nethack on
