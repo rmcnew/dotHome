@@ -5,11 +5,11 @@ set term=xterm
 set encoding=utf-8
 set fileencoding=utf-8
 
-if &t_Co > 2        " Switch syntax highlighting on, when the terminal has colors
-  syntax on
-  colorscheme torte
+syntax on
+colorscheme elflord
+if has('gui_running')
+    set guifont=Hack\ 13
 endif
-
 set autoindent            " always set autoindenting on
 set backspace=2           " allow backspacing over everything in insert mode
 set cindent shiftwidth=4  " Same thing with cindent

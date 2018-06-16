@@ -12,10 +12,12 @@ alias ll='ls -lah'
 alias ls='ls -F -G'
 alias vim='vim -p'
 alias view='vim -R -p'
-alias vimdiff='vim -d'
 alias make='make -j4'
-alias newscreen='screen -S mcnew-desktop'
-alias screen='screen -x mcnew-desktop'
+alias newscreen='/usr/bin/screen -S mcnew-desktop'
+alias screen='/usr/bin/screen -x mcnew-desktop'
+alias rubymine='/opt/RubyMine/bin/rubymine.sh'
+alias idea='/opt/idea/bin/idea.sh'
+alias pycharm='/opt/pycharm/bin/pycharm.sh'
 
 #### exports ####
 # generic #
@@ -26,7 +28,7 @@ export VISUAL='vim'
 export ZLS_COLORS="$LS_COLORS"
 export SCREENRC=~/.screenrc
 export COLORFGBG="default;default"
-export PATH="/home/rmcnew/bin:/bin:/usr/bin:/usr/local/bin:/usr/X11R6/bin:/sbin:/usr/sbin:/usr/local/sbin:/opt/clion-2016.3.2/bin:/home/rmcnew/flutter/bin:/opt/android-studio/bin"
+export PATH="/home/rmcnew/bin:/bin:/usr/bin:/usr/local/bin:/usr/X11R6/bin:/sbin:/usr/sbin:/usr/local/sbin:/opt/clion-2016.3.2/bin:/home/rmcnew/flutter/bin:/opt/android-studio/bin:/home/rmcnew/go/bin"
 export GRADLE_HOME="/usr/share/gradle"
 
 #### zsh key bindings ####
