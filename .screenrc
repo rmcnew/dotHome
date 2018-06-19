@@ -1,12 +1,12 @@
 startup_message off
-termcapinfo term* ti@:te@
+#termcapinfo term* ti@:te@
 term xterm
 altscreen on
 vbell off
 defscroolback 50000
 defutf8 on
 hardstatus alwayslastline
-hardstatus string "%{= kw}%-w{w= bW}%50>%n %t%{-}%+w%<"
+hardstatus string "%{= kw}%-w%{= bW}%50>%n %t%{-}%+w%<"
 activity "Activity in %t(%n)"
 nonblock on
 nethack on
