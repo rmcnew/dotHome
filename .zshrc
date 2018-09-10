@@ -56,7 +56,7 @@ PAGER=less
 # %n: username, %m: hostname, %1~: display the pwd (if $HOME then ~) one level
 # %(!.#.$): if (su_priv) then # else $
 #PROMPT=$'%(!.%{\e[1;31m%}.%{\e[1;34m%})[%m %C]%{\e[0;00m%} '
-PROMPT=$'%(!.%{\e[1;31m%}.%{\e[0;36m%})[%m %C]%{\e[0;00m%} '
+PROMPT=$'%(!.%{\e[1;31m%}.%{\e[0;36m%})[%m %/]%{\e[0;00m%} '
 
 # RPROMPT (shows up at the end of a line)
 # if (exit code wasn't bad) then else display the exit code
