@@ -15,6 +15,9 @@ alias view='vim -R -p'
 alias make='make -j4'
 alias newscreen='/usr/bin/screen -S mcnew-desktop'
 alias screen='/usr/bin/screen -x mcnew-desktop'
+alias ytdl='~/bin/youtube-dl'
+alias ytdlx='~bin/youtube-dl -x --audio-format mp3'
+alias pws='python3 -m http.server 8000'
 
 #### exports ####
 # generic #
@@ -25,7 +28,7 @@ export VISUAL='vim'
 export ZLS_COLORS="$LS_COLORS"
 export SCREENRC=~/.screenrc
 export COLORFGBG="default;default"
-export PATH="/home/richardscottmcnew/bin:/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin"
+export PATH="/home/rmcnew/bin:/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin:/opt/node/bin"
 
 #### zsh key bindings ####
 bindkey '^[[3~' delete-char
@@ -43,7 +46,6 @@ HISTFILE=~/.zsh_history
 HISTSIZE=50000
 SAVEHIST=50000
 
-PAGER=less
 
 # PROMPT explanation:
 # $=' needed for colors
@@ -72,3 +74,12 @@ zstyle ':completion:*' users me root
 
 #unset DISPLAY
 
+export LESS_TERMCAP_mb=$'\e[1;31m'     # begin bold
+export LESS_TERMCAP_md=$'\e[1;33m'     # begin blink
+export LESS_TERMCAP_so=$'\e[01;44;37m' # begin reverse video
+export LESS_TERMCAP_us=$'\e[01;37m'    # begin underline
+export LESS_TERMCAP_me=$'\e[0m'        # reset bold/blink
+export LESS_TERMCAP_se=$'\e[0m'        # reset reverse video
+export LESS_TERMCAP_ue=$'\e[0m'        # reset underline
+export GROFF_NO_SGR=1                  # for konsole and gnome-terminal
+export MANPAGER='less -s -M +Gg'
