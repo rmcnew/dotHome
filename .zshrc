@@ -28,7 +28,7 @@ export VISUAL='vim'
 export ZLS_COLORS="$LS_COLORS"
 export SCREENRC=~/.screenrc
 export COLORFGBG="default;default"
-export PATH="/home/rmcnew/bin:/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin:/opt/node/bin"
+export PATH="/home/rmcnew/bin:/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin"
 
 #### zsh key bindings ####
 bindkey '^[[3~' delete-char
