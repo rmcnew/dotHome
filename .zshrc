@@ -16,8 +16,12 @@ alias make='make -j4'
 alias newscreen='/usr/bin/screen -S mcnew-desktop'
 alias screen='/usr/bin/screen -x mcnew-desktop'
 alias ytdl='~/bin/youtube-dl'
-alias ytdlx='~bin/youtube-dl -x --audio-format mp3'
+alias ytdlx='~/bin/youtube-dl -x --audio-format mp3'
 alias pws='python3 -m http.server 8000'
+alias shs='simple-http-server'
+alias wgrab='wget --random-wait -E -r -k -p -np '
+alias update='sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove'
+alias pdf2word='libreoffice --invisible --infilter="writer_pdf_import" --convert-to docx:"MS Word 2007 XML"'
 
 #### exports ####
 # generic #
@@ -28,7 +32,7 @@ export VISUAL='vim'
 export ZLS_COLORS="$LS_COLORS"
 export SCREENRC=~/.screenrc
 export COLORFGBG="default;default"
-export PATH="/home/rmcnew/bin:/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin"
+export PATH="/home/rmcnew/bin:/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin:/home/rmcnew/.cargo/bin"
 
 #### zsh key bindings ####
 bindkey '^[[3~' delete-char

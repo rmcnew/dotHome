@@ -12,7 +12,7 @@
  '(display-time-mode t)
  '(inhibit-startup-screen t)
  '(lisp-indent-offset 4)
- '(package-selected-packages (quote (slime)))
+ '(package-selected-packages (quote (exec-path-from-shell cider slime)))
  '(scroll-bar-mode (quote right))
  '(show-paren-mode t)
  '(toolbar-captioned-p nil)
