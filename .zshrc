@@ -21,7 +21,14 @@ alias pws='python3 -m http.server 8000'
 alias shs='simple-http-server'
 alias wgrab='wget --random-wait -E -r -k -p -np '
 alias update='sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove'
-alias pdf2word='libreoffice --invisible --infilter="writer_pdf_import" --convert-to docx:"MS Word 2007 XML"'
+alias pdf2word='libreoffice --invisible --infilter="writer_pdf_import" --convert-to docx:"MS Word 2007 XML"'alias cmakeg='cmake -B build'
+alias cmakegr='cmake -B build -DCMAKE_BUILD_TYPE=Release'
+alias cmakeb='cmake --build build'
+alias cmakebr='cmake --build build --config Release'
+alias cmakegb='cmake -B build && cmake --build build'
+alias cmakegbr='cmake -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release'
+alias cmakegbt='cmake -B build && cmake --build build && ctest'
+alias cmakegbrt='cmake -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && ctest -C Release'
 
 #### exports ####
 # generic #
