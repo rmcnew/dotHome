@@ -9,10 +9,11 @@ AUTO_TITLE_SCREENS="NO"
 #### aliases ####
 alias bc='bc -l'
 alias ll='ls -lah'
-alias ls='ls -F -G'
+alias ls='ls -F --color=always'
 alias vim='vim -p'
 alias view='vim -R -p'
-alias make='make -j4'
+CPU_COUNT=`nproc`
+alias make="make -j$CPU_COUNT"
 alias newscreen='/usr/bin/screen -S mcnew-desktop'
 alias curscreen='/usr/bin/screen -x mcnew-desktop'
 alias ytdl='~/bin/youtube-dl'
