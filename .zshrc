@@ -64,9 +64,8 @@ SAVEHIST=50000
 # $=' needed for colors
 # %{\e[1;32m%} sets our first color. 32 is the color, changed as needed
 # always end with color 00 so the CL is normal
-# %n: username, %m: hostname, %1~: display the pwd (if $HOME then ~) one level
+# %n: username, %m: hostname, %~: display the pwd (if $HOME then ~)
 # %(!.#.$): if (su_priv) then # else $
-#PROMPT=$'%(!.%{\e[1;31m%}.%{\e[1;34m%})[%m %C]%{\e[0;00m%} '
 PROMPT=$'%(!.%{\e[1;31m%}.%{\e[0;36m%})[%m %/]%{\e[0;00m%} '
 
 # RPROMPT (shows up at the end of a line)

@@ -18,21 +18,23 @@ set tabstop=4       " four spaces per tab
 set shiftwidth=4
 set softtabstop=4
 set expandtab       " convert tabs to spaces
-set foldlevel=0           " show contents of all folds
+set foldlevel=0     " show contents of all folds
 set foldmethod=diff " fold according to differences
 set showmatch       " show matching parens and braces
 set incsearch       " do incremental searching
 set hlsearch        " search highlighting
-set linebreak             " This displays long lines as wrapped at word boundries
+set linebreak       " display long lines wrapped at word boundries
 set ruler           " tell cursor's  position on the status line
 set laststatus=2    " show the status line
 set statusline=
 set statusline+=%2*%-3.3n%0*\                " buffer number
 set statusline+=%f\                          " file name
 set statusline+=%h%1*%m%r%w%0*               " flags
-set statusline+=\[%{strlen(&ft)?&ft:'none'}, " filetype
-set statusline+=%{&encoding},                " encoding
-set statusline+=%{&fileformat}]              " file format
+set statusline+=\[%{strlen(&ft)?&ft:'none'}  " filetype
+set statusline+=\ %{&encoding}               " encoding
+set statusline+=\ %{&fileformat}]            " file format
+set statusline+=\ row:\ %l/%L                " current row / total rows
+set statusline+=\ column:\ %c                " current column
 set history=500     " number of lines in command-line history
 set undolevels=1000 " number of undo levels
 set noerrorbells    " no beeps or bells
