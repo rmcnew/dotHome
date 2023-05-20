@@ -7,9 +7,6 @@ set fileencoding=utf-8
 
 syntax on
 colorscheme elflord
-if has('gui_running')
-    set guifont=Hack\ 13
-endif
 set autoindent            " always set autoindenting on
 set backspace=2           " allow backspacing over everything in insert mode
 set cindent shiftwidth=4  " Same thing with cindent

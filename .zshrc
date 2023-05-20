@@ -1,14 +1,8 @@
-
-# profile
-if [ -f /etc/profile ]; then
-        source /etc/profile
-fi
-
 AUTO_TITLE_SCREENS="NO"
 
 #### aliases ####
 alias bc='bc -l'
-alias ll='ls -lah'
+alias ll='ls -lah -F --color=always'
 alias ls='ls -F --color=always'
 alias vim='vim -p'
 alias view='vim -R -p'
@@ -16,9 +10,8 @@ CPU_COUNT=`nproc`
 alias make="make -j$CPU_COUNT"
 alias newscreen='/usr/bin/screen -S mcnew-desktop'
 alias curscreen='/usr/bin/screen -x mcnew-desktop'
-alias ytdl='~/bin/youtube-dl'
-alias ytdlx='~/bin/youtube-dl -x --audio-format mp3'
-alias pws='python3 -m http.server 8000'
+alias newtmux="tmux new-session -s mcnew-desktop"
+alias curtmux="tmux new-session -t mcnew-desktop -s $$"
 alias shs='simple-http-server'
 alias wgrab='wget --random-wait -E -r -k -p -np '
 alias update='sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove'
@@ -41,7 +34,12 @@ export VISUAL='vim'
 export ZLS_COLORS="$LS_COLORS"
 export SCREENRC=~/.screenrc
 export COLORFGBG="default;default"
-export PATH="/home/rmcnew/bin:/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin:/home/rmcnew/.cargo/bin"
+export CUDA_BASE="/usr/local/cuda"
+export PATH="$HOME/bin:$HOME/.cargo/bin:/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin:$CUDA_BASE/bin"
+export LD_LIBRARY_PATH="$CUDA_BASE/lib64:$LD_LIBRARY_PATH"
+export C_INCLUDE_PATH="$CUDA_BASE/include:$C_INCLUDE_PATH"
+export CPLUS_INCLUDE_PATH="$CUDA_BASE/include:$CPLUS_INCLUDE_PATH"
+
 
 #### zsh key bindings ####
 bindkey '^[[3~' delete-char
@@ -59,6 +57,7 @@ HISTFILE=~/.zsh_history
 HISTSIZE=50000
 SAVEHIST=50000
 
+PAGER=less
 
 # PROMPT explanation:
 # $=' needed for colors
