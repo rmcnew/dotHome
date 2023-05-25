@@ -39,6 +39,7 @@ export PATH="$HOME/bin:$HOME/.cargo/bin:/bin:/usr/bin:/usr/local/bin:/sbin:/usr/
 export LD_LIBRARY_PATH="$CUDA_BASE/lib64:$LD_LIBRARY_PATH"
 export C_INCLUDE_PATH="$CUDA_BASE/include:$C_INCLUDE_PATH"
 export CPLUS_INCLUDE_PATH="$CUDA_BASE/include:$CPLUS_INCLUDE_PATH"
+unset SSH_ASKPASS
 
 
 #### zsh key bindings ####
