@@ -104,7 +104,7 @@ noremap <bs> <pageup>
 inoremap <Nul> <C-x><C-o>  "Omnicompletion using Ctrl-Space (console)
 
 " Vim 7 tabs :)
-set tabpagemax=50
+set tabpagemax=250
 map th :tabprev<CR>
 map tl :tabnext<CR>
 map tn :tabnew<CR>
