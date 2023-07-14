@@ -16,6 +16,7 @@ alias shs='simple-http-server'
 alias wgrab='wget --random-wait -E -r -k -p -np '
 alias update='sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove'
 alias pdf2word='libreoffice --invisible --infilter="writer_pdf_import" --convert-to docx:"MS Word 2007 XML"'
+alias ytdlx='yt-dlp -x --audio-format mp3'
 alias cmakeg='cmake -B build'
 alias cmakegr='cmake -B build -DCMAKE_BUILD_TYPE=Release'
 alias cmakeb='cmake --build build'
@@ -24,6 +25,9 @@ alias cmakegb='cmake -B build && cmake --build build'
 alias cmakegbr='cmake -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release'
 alias cmakegbt='cmake -B build && cmake --build build && ctest'
 alias cmakegbrt='cmake -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && ctest -C Release'
+alias clangwasm='clang --target=wasm32 -nostdlib -Wl,--no-entry -Wl,--export-all'
+alias cbr='cargo build --release'
+alias cbrw='cargo build --release --target wasm32-unknown-unknown'
 
 #### exports ####
 # generic #
@@ -35,7 +39,10 @@ export ZLS_COLORS="$LS_COLORS"
 export SCREENRC=~/.screenrc
 export COLORFGBG="default;default"
 export CUDA_BASE="/usr/local/cuda"
-export PATH="$HOME/bin:$HOME/.cargo/bin:/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin:$CUDA_BASE/bin"
+SYSTEM_BINS="/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin"
+CUDA_BIN="$CUDA_BASE/bin"
+CARGO_BIN="$HOME/.cargo/bin"
+export PATH="$HOME/bin:$SYSTEM_BINS:$CUDA_BIN:$CARGO_BIN"
 export LD_LIBRARY_PATH="$CUDA_BASE/lib64:$LD_LIBRARY_PATH"
 export C_INCLUDE_PATH="$CUDA_BASE/include:$C_INCLUDE_PATH"
 export CPLUS_INCLUDE_PATH="$CUDA_BASE/include:$CPLUS_INCLUDE_PATH"
