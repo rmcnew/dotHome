@@ -2,10 +2,24 @@
 # From https://stackoverflow.com/questions/3492920/is-there-a-system-defined-environment-variable-for-documents-directory
 #$env:DOCUMENTS = [Environment]::GetFolderPath("mydocuments")
 $env:DOCUMENTS = "$HOME\OneDrive\Documents"
-$docs = $env:DOCUMENTS
+$DOCS = $env:DOCUMENTS
 
+$PROGRAM_FILES = "C:\Program Files"
+$LOCAL_PROGRAMS = "$HOME\AppData\Local\Programs"
 # add locations to PATH
-$env:Path = "C:\Program Files (x86)\Vim\vim82;$env:PATH"
+$RUST_BIN = "$HOME\.cargo\bin"
+$MSVS = "$PROGRAM_FILES\Microsoft Visual Studio\2022\Community"
+$LLVM_BIN = "$MSVS\VC\Tools\Llvm\bin"
+$GIT_HOME = "$PROGRAM_FILES\Git"
+$GIT_BINS = "$GIT_HOME\bin;$GIT_HOME\usr\bin;$GIT_HOME\mingw64\bin"
+$PODMAN_BIN = "$PROGRAM_FILES\RedHat\Podman"
+$EMSDK_HOME = "$HOME\bin\emsdk"
+$EMSDK_BINS = "$EMSDK_HOME;$EMSDK_HOME\node\12.20.0_64bit\bin;$EMSDK_HOME\upstream\emscripten"
+$MAKE_BIN = "$LOCAL_PROGRAMS\make"
+$env:Path = "$HOME\bin;$RUST_BIN;$LLVM_BIN;$GIT_BINS;$PODMAN_BIN;$EMSDK_BINS;$MAKE_BIN;$env:PATH"
+
+# number of processor cores
+$NPROC = Get-CimInstance -classname Win32_Processor | Select-Object -Property NumberOfLogicalProcessors
 
 # turn off bell
 Set-PSReadlineOption -BellStyle None
@@ -33,12 +47,12 @@ function open($file) {
 
 # Truncate homedir to ~
 function limit-HomeDirectory($Path) {
-  $Path.Replace("$home", "~")
+  $Path.ToString().Replace("$home", "~")
 }
 
 # customize the prompt
 function prompt {
-        Write-Output "[$env:USERNAME@$env:COMPUTERNAME $(Get-Location) $(Get-Date -Format 'yyyy-MM-ddTHH:mm:ss')] "  
+        Write-Output "[$env:USERNAME@$env:COMPUTERNAME $($(Get-Location).ToString().Replace("$home", "~")) $(Get-Date -Format 'yyyy-MM-ddTHH:mm:ss')] "  
 }
 
 function edge {
@@ -86,34 +100,9 @@ function docs() {
     set-location $env:DOCUMENTS
 }
 
-# vim and gvim
-function view() {
-    start-process "C:\Program Files (x86)\Vim\vim82\vim.exe" -ArgumentList "-R -p $args"
-}
-
-function gview() {
-    start-process "C:\Program Files (x86)\Vim\vim82\gvim.exe" -ArgumentList "-R -p $args"
-}
-
-function vim() {
-    start-process "C:\Program Files (x86)\Vim\vim82\vim.exe" -ArgumentList "-p $args"
-}
-
-function gvim() {
-    start-process "C:\Program Files (x86)\Vim\vim82\gvim.exe" -ArgumentList "-p $args"
-}
-
-function vimdiff() {
-    start-process "C:\Program Files (x86)\Vim\vim82\vim.exe" -ArgumentList "-d $args"
-}
-
-function gvimdiff() {
-    start-process "C:\Program Files (x86)\Vim\vim82\gvim.exe" -ArgumentList "-d $args"
-}
-
 
 function outlook() {
-    start-process "C:\Program Files (x86)\Microsoft Office\Office16\outlook.exe"
+    start-process "C:\Program Files\Microsoft Office\root\Office16\outlook.exe"
 }
 
 
@@ -221,9 +210,62 @@ function pgrep($name) {
 	get-process $name
 }
 
+#ls -a
+function la() {
+	Get-ChildItem -hidden -filter .*
+}
+
 # zip and unzip
 set-alias zip compress-archive
 set-alias unzip expand-archive
+
+# "aliases"
+function shs {
+	simple-http-server @Args
+}
+function make {
+	make -j $NPROC @Args
+}
+function wget {
+	wget2 @Args
+}
+function wgrab {
+	wget2 --random-wait -E -r -k -p -np @Args
+}
+function cmakeg {
+	cmake -B build @Args
+}
+function cmakegr {
+	cmake -B build -DCMAKE_BUILD_TYPE=Release @Args
+}
+function cmakeb {
+	cmake ---build build @Args
+}
+function cmakebr {
+	cmake --build build --config Release @Args
+}
+function cmakegb {
+	cmake -B build && cmake --build build
+}
+function cmakegbr {
+	cmake -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release
+}
+function cmakegbt {
+	cmake -B build && cmake --build build && ctest
+}
+function cmakegbrt {
+	cmake -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && ctest -C Release
+}
+function clangwasm {
+	clang "--target=wasm32 -nostdlib -Wl,--no-entry -Wl,--export-all" @Args
+}
+function cbr {
+	cargo build --release @Args
+}
+function cbrw {
+	cargo build --release --target wasm32-unknown-unknown @Args
+}
+
 
 # start in home dir
 cd $HOME
