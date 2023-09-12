@@ -10,13 +10,16 @@ $LOCAL_PROGRAMS = "$HOME\AppData\Local\Programs"
 $RUST_BIN = "$HOME\.cargo\bin"
 $MSVS = "$PROGRAM_FILES\Microsoft Visual Studio\2022\Community"
 $LLVM_BIN = "$MSVS\VC\Tools\Llvm\bin"
-$GIT_HOME = "$PROGRAM_FILES\Git"
+$GIT_HOME = "$LOCAL_PROGRAMS\Git"
 $GIT_BINS = "$GIT_HOME\bin;$GIT_HOME\usr\bin;$GIT_HOME\mingw64\bin"
 $PODMAN_BIN = "$PROGRAM_FILES\RedHat\Podman"
 $EMSDK_HOME = "$HOME\bin\emsdk"
 $EMSDK_BINS = "$EMSDK_HOME;$EMSDK_HOME\node\12.20.0_64bit\bin;$EMSDK_HOME\upstream\emscripten"
 $MAKE_BIN = "$LOCAL_PROGRAMS\make"
-$env:Path = "$HOME\bin;$RUST_BIN;$LLVM_BIN;$GIT_BINS;$PODMAN_BIN;$EMSDK_BINS;$MAKE_BIN;$env:PATH"
+$GO_TOOLCHAIN_BIN = "$LOCAL_PROGRAMS\go\bin"
+$GO_BIN = "$HOME\go\bin"
+$PYTHON_SCRIPTS = "$HOME\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\Scripts"
+$env:Path = "$HOME\bin;$RUST_BIN;$LLVM_BIN;$GIT_BINS;$PODMAN_BIN;$EMSDK_BINS;$MAKE_BIN;$GO_TOOLCHAIN_BIN;$GO_BIN;$PYTHON_SCRIPTS;$env:PATH"
 
 # number of processor cores
 $NPROC = Get-CimInstance -classname Win32_Processor | Select-Object -Property NumberOfLogicalProcessors
@@ -78,7 +81,9 @@ function cut(){
 }
 
 # cd with shortcut resolving
-remove-item alias:cd -force
+if (Test-Path alias:cd) {
+	remove-item alias:cd -force	
+}
 function cd($target)
 {
     if ($target) {
@@ -232,6 +237,15 @@ function wget {
 function wgrab {
 	wget2 --random-wait -E -r -k -p -np @Args
 }
+
+function ytdlx {
+	yt-dlp_x86 -x --audio-format mp3 @Args
+}
+
+function ytdl {
+	yt-dlp_x86 @Args
+}
+
 function cmakeg {
 	cmake -B build @Args
 }
@@ -259,6 +273,10 @@ function cmakegbrt {
 function clangwasm {
 	clang "--target=wasm32 -nostdlib -Wl,--no-entry -Wl,--export-all" @Args
 }
+function cb {
+	cargo build @Args
+}
+
 function cbr {
 	cargo build --release @Args
 }
