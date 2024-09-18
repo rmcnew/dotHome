@@ -4,22 +4,24 @@
 $env:DOCUMENTS = "$HOME\OneDrive\Documents"
 $DOCS = $env:DOCUMENTS
 
+# primary root folder for installed applications
 $PROGRAM_FILES = "C:\Program Files"
 $LOCAL_PROGRAMS = "$HOME\AppData\Local\Programs"
+
+# LLVM and Clang
+$env:LIBCLANG_PATH = "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\Llvm\bin"
+
 # add locations to PATH
+$WINDOWS_SSH = "C:\Windows\System32\OpenSSH"
 $RUST_BIN = "$HOME\.cargo\bin"
 $MSVS = "$PROGRAM_FILES\Microsoft Visual Studio\2022\Community"
 $LLVM_BIN = "$MSVS\VC\Tools\Llvm\bin"
-$GIT_HOME = "$LOCAL_PROGRAMS\Git"
+$GIT_HOME = "$PROGRAM_FILES\Git"
 $GIT_BINS = "$GIT_HOME\bin;$GIT_HOME\usr\bin;$GIT_HOME\mingw64\bin"
-$PODMAN_BIN = "$PROGRAM_FILES\RedHat\Podman"
-$EMSDK_HOME = "$HOME\bin\emsdk"
-$EMSDK_BINS = "$EMSDK_HOME;$EMSDK_HOME\node\12.20.0_64bit\bin;$EMSDK_HOME\upstream\emscripten"
-$MAKE_BIN = "$LOCAL_PROGRAMS\make"
 $GO_TOOLCHAIN_BIN = "$LOCAL_PROGRAMS\go\bin"
 $GO_BIN = "$HOME\go\bin"
-$PYTHON_SCRIPTS = "$HOME\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\Scripts"
-$env:Path = "$HOME\bin;$RUST_BIN;$LLVM_BIN;$GIT_BINS;$PODMAN_BIN;$EMSDK_BINS;$MAKE_BIN;$GO_TOOLCHAIN_BIN;$GO_BIN;$PYTHON_SCRIPTS;$env:PATH"
+$SYSINTERNALS_BIN = "$LOCAL_PROGRAMS/sysinternals"
+$env:Path = "$HOME\bin;$RUST_BIN;$LLVM_BIN;$WINDOWS_SSH;$GIT_BINS;$GO_TOOLCHAIN_BIN;$GO_BIN;$SYSINTERNALS_BIN;$env:PATH"
 
 # number of processor cores
 $NPROC = Get-CimInstance -classname Win32_Processor | Select-Object -Property NumberOfLogicalProcessors
@@ -42,6 +44,85 @@ $Host.UI.RawUI.CursorSize=100;
 
 # "trash" command sends to Recycle Bin
 Set-Alias trash Remove-ItemSafely
+
+# Focus follows mouse / sloppy focus API
+Add-Type -TypeDefinition @'
+    using System;
+    using System.Runtime.InteropServices;
+    using System.ComponentModel;
+
+    public static class Spi {
+        [System.FlagsAttribute]
+        private enum Flags : uint {
+            None            = 0x0,
+            UpdateIniFile   = 0x1,
+            SendChange      = 0x2,
+        }
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool SystemParametersInfo(
+            uint uiAction, uint uiParam, UIntPtr pvParam, Flags flags );
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool SystemParametersInfo(
+            uint uiAction, uint uiParam, out bool pvParam, Flags flags );
+
+        private static void check( bool ok ) {
+            if( ! ok )
+                throw new Win32Exception( Marshal.GetLastWin32Error() );
+        }
+
+        private static UIntPtr ToUIntPtr( this bool value ) {
+            return new UIntPtr( value ? 1u : 0u );
+        }
+
+        public static bool GetActiveWindowTracking() {
+            bool enabled;
+            check( SystemParametersInfo( 0x1000, 0, out enabled, Flags.None ) );
+            return enabled;
+        }
+
+        public static void SetActiveWindowTracking( bool enabled ) {
+            // note: pvParam contains the boolean (cast to void*), not a pointer to it!
+            check( SystemParametersInfo( 0x1001, 0, enabled.ToUIntPtr(), Flags.SendChange ) );
+        }
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool SystemParametersInfo(
+            uint uiAction, uint uiParam, out uint pvParam, Flags flags );
+
+		public static uint GetActiveWindowTrackingTimeout() {
+			uint timeout;
+			check( SystemParametersInfo( 0x2002, 0, out timeout, Flags.None ) );
+			return timeout;
+		}
+
+		public static void SetActiveWindowTrackingTimeout(uint timeout) {
+			check( SystemParametersInfo( 0x2003, 0, new UIntPtr(timeout), Flags.SendChange) );
+		}
+    }
+'@
+# check if mouse-focus is enabled
+function get-sloppy-focus() {
+	[Spi]::GetActiveWindowTracking()
+}
+# disable mouse-focus (default)
+function clear-sloppy-focus() {
+	[Spi]::SetActiveWindowTracking( $false )
+}
+# enable mouse-focus
+function set-sloppy-focus() {
+	[Spi]::SetActiveWindowTracking( $true )
+}
+# get sloppy focus timeout
+function get-sloppy-focus-timeout() {
+	[Spi]::GetActiveWindowTrackingTimeout()
+}
+# set sloppy focus timeout
+function set-sloppy-focus-timeout($timeout) {
+	[Spi]::SetActiveWindowTrackingTimeout($timeout)
+}
+
 
 # easier to remember than "ii"
 function open($file) {
@@ -104,12 +185,6 @@ function cd($target)
 function docs() {
     set-location $env:DOCUMENTS
 }
-
-
-function outlook() {
-    start-process "C:\Program Files\Microsoft Office\root\Office16\outlook.exe"
-}
-
 
 # touch
 #Remove-Item alias:touch -force
@@ -245,38 +320,9 @@ function ytdlx {
 function ytdl {
 	yt-dlp_x86 @Args
 }
-
-function cmakeg {
-	cmake -B build @Args
-}
-function cmakegr {
-	cmake -B build -DCMAKE_BUILD_TYPE=Release @Args
-}
-function cmakeb {
-	cmake ---build build @Args
-}
-function cmakebr {
-	cmake --build build --config Release @Args
-}
-function cmakegb {
-	cmake -B build && cmake --build build
-}
-function cmakegbr {
-	cmake -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release
-}
-function cmakegbt {
-	cmake -B build && cmake --build build && ctest
-}
-function cmakegbrt {
-	cmake -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && ctest -C Release
-}
-function clangwasm {
-	clang "--target=wasm32 -nostdlib -Wl,--no-entry -Wl,--export-all" @Args
-}
 function cb {
 	cargo build @Args
 }
-
 function cbr {
 	cargo build --release @Args
 }
@@ -284,6 +330,14 @@ function cbrw {
 	cargo build --release --target wasm32-unknown-unknown @Args
 }
 
+function upgradePowerShell {
+	winget upgrade --id Microsoft.PowerShell --source winget
+}
+
+# turn on sloppy focus on 
+set-sloppy-focus
+# set a short timeout
+set-sloppy-focus-timeout(50)
 
 # start in home dir
 cd $HOME
