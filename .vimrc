@@ -1,9 +1,19 @@
 " Scott's VIM settings
 
 set nocompatible     " do not emulate vi (this is set first because it has side effects)
-set term=xterm
+set term=xterm-256
 set encoding=utf-8
 set fileencoding=utf-8
+
+if has("win32") || has("win64")
+    set shell=powershell
+    set shellcmdflag=-c
+    set shellquote="
+    set shellxquote=
+    let TMP="C:/tmp"
+else 
+    set shell=/bin/zsh  " define the preferred shell
+endif
 
 syntax on
 colorscheme elflord
@@ -36,7 +46,6 @@ set history=500     " number of lines in command-line history
 set undolevels=1000 " number of undo levels
 set noerrorbells    " no beeps or bells
 set nobackup        " do not keep a backup file
-set shell=/bin/zsh  " define the preferred shell
 set nostartofline   " keep the cursor on the current column of each line
 set title           " put the title as VIM - filename
 set splitbelow      " put new windows below the current window
@@ -60,39 +69,8 @@ highlight DiffText term=reverse cterm=bold ctermbg=gray ctermfg=black
 highlight DiffDelete term=reverse cterm=bold ctermbg=red ctermfg=black 
 
 if has("autocmd")
-
   " Enabled file type detection and file-type specific plugins.
   filetype plugin indent on " detect file type and set options
-
-  " Python code.
-  augroup python
-    autocmd BufReadPre,FileReadPre      *.py set tabstop=4
-    autocmd BufReadPre,FileReadPre      *.py set expandtab
-  augroup END
-
-  " Ruby code.
-  augroup ruby
-    autocmd BufReadPre,FileReadPre      *.rb set tabstop=4
-    autocmd BufReadPre,FileReadPre      *.rb set expandtab
-  augroup END
-
-  " PHP code.
-  augroup php
-    autocmd BufReadPre,FileReadPre      *.php set tabstop=4
-    autocmd BufReadPre,FileReadPre      *.php set expandtab
-  augroup END
-
-  " Java code.
-  augroup java
-    autocmd BufReadPre,FileReadPre      *.java set tabstop=4
-    autocmd BufReadPre,FileReadPre      *.java set expandtab
-  augroup END
-
-  " ANT build.xml files.
-  augroup xml
-    autocmd BufReadPre,FileReadPre      build.xml set tabstop=4
-  augroup END
-
 endif
 
 autocmd FileType make set noexpandtab shiftwidth=8

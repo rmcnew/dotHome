@@ -136,7 +136,7 @@ function limit-HomeDirectory($Path) {
 
 # customize the prompt
 function prompt {
-        Write-Output "[$env:USERNAME@$env:COMPUTERNAME $($(Get-Location).ToString().Replace("$home", "~")) $(Get-Date -Format 'yyyy-MM-ddTHH:mm:ss')] "  
+    Write-Output "[$env:USERNAME@$env:COMPUTERNAME $($(Get-Location).ToString().Replace("$home", "~")) $(Get-Date -Format 'yyyy-MM-ddTHH:mm:ss')] "  
 }
 
 function edge {
@@ -220,6 +220,12 @@ function grep($regex, $dir) {
 		return
 	}
 	$input | select-string $regex
+}
+
+function wget {
+	$url = $Args[0]
+	$filename = [System.IO.Path]::GetFileName($url)
+	Invoke-WebRequest -Uri "$url" -OutFile "$filename"
 }
 
 # pstree
@@ -306,19 +312,11 @@ function shs {
 function make {
 	make -j $NPROC @Args
 }
-function wget {
-	wget2 @Args
-}
-function wgrab {
-	wget2 --random-wait -E -r -k -p -np @Args
-}
-
 function ytdlx {
-	yt-dlp_x86 -x --audio-format mp3 @Args
+	yt-dlp -x --audio-format mp3 @Args
 }
-
 function ytdl {
-	yt-dlp_x86 @Args
+	yt-dlp @Args
 }
 function cb {
 	cargo build @Args
