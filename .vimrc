@@ -1,7 +1,7 @@
 " Scott's VIM settings
 
 set nocompatible     " do not emulate vi (this is set first because it has side effects)
-set term=xterm-256
+set term=xterm-256color
 set encoding=utf-8
 set fileencoding=utf-8
 
@@ -16,7 +16,7 @@ else
 endif
 
 syntax on
-colorscheme elflord
+colorscheme torte
 set autoindent            " always set autoindenting on
 set backspace=2           " allow backspacing over everything in insert mode
 set cindent shiftwidth=4  " Same thing with cindent

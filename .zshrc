@@ -12,7 +12,6 @@ alias newscreen='/usr/bin/screen -S mcnew-desktop'
 alias curscreen='/usr/bin/screen -x mcnew-desktop'
 alias newtmux="tmux new-session -s mcnew-desktop"
 alias curtmux="tmux new-session -t mcnew-desktop -s $$"
-alias shs='simple-http-server'
 alias wgrab='wget --random-wait -E -r -k -p -np '
 alias update='sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove'
 alias pdf2word='libreoffice --invisible --infilter="writer_pdf_import" --convert-to docx:"MS Word 2007 XML"'
@@ -83,6 +82,9 @@ RPROMPT=$'%{\e[0;32m%}%(?..%?)%{\e[0;00m%}'
 # make tab-completion even better. (for example: emerge something<tab> works)
 autoload -U compinit
 compinit
+
+# increase file limit
+ulimit -n unlimited
 
 # completion settings.
 # I don't like having a horde of users, and want some specific machines for ssh

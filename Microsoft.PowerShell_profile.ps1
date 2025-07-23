@@ -301,6 +301,50 @@ function la() {
 	Get-ChildItem -hidden -filter .*
 }
 
+
+# simple wget replacement
+function simple_wget {
+    $url = $Args[0]
+    $filename = [System.IO.Path]::GetFileName($url)
+    Invoke-WebRequest -Uri "$url" -OutFile "$filename"
+}
+
+# get Rust updates
+function get_rust([parameter(Mandatory=$true)][string]$version) {
+    cd ${HOME}/Downloads;
+    mkdir "rust_${version}";
+    cd "rust_${version}";
+    simple_wget "https://static.rust-lang.org/dist/rust-${version}-x86_64-unknown-linux-gnu.tar.xz";
+    simple_wget "https://static.rust-lang.org/dist/rust-src-${version}.tar.xz";
+    simple_wget "https://static.rust-lang.org/dist/rust-std-${version}-wasm32-unknown-unknown.tar.xz";
+    simple_wget "https://github.com/rust-lang/rust-analyzer/releases/latest/download/rust-analyzer-linux-x64.vsix";
+    mv "rust-analyzer-linux-x64.vsix" "rust-analyzer-linux-x64_${version}.vsix";
+    cd ..;
+    tar cJf "rust_${version}.tar.xz" "rust_${version}";
+    sha256sum "rust_${version}.tar.xz" > "rust_${version}_tar_xz.sha256sum";
+    sha256sum -c "rust_${version}_tar_xz.sha256sum";
+}
+
+
+# get Go updates
+function get_go([parameter(Mandatory=$true)][string]$version) {
+    cd ${HOME}/Downloads;
+    mkdir "go_${version}";
+    cd "go_${version}";
+    simple_wget "https://go.dev/dl/go${version}.linux-amd64.tar.gz";
+    simple_wget "https://go.dev/dl/go${version}.windows-amd64.zip";    
+    $extensionId="golang.Go";
+    $publisher, $name = $extensionId -split '\.';
+    $downloadUrl = "https://$publisher.gallery.vsassets.io/_apis/public/gallery/publisher/$publisher/extension/$name/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+    Invoke-WebRequest -Uri $downloadUrl -OutFile "$name.vsix" -UseBasicParsing;
+    mv "$name.vsix" "go_${version}.vsix";
+    cd ..;
+    tar cJf "go_${version}.tar.xz" "go_${version}";
+    sha256sum "go_${version}.tar.xz" > "go_${version}_tar_xz.sha256sum";
+    sha256sum -c "go_${version}_tar_xz.sha256sum";
+}
+
+
 # zip and unzip
 set-alias zip compress-archive
 set-alias unzip expand-archive
