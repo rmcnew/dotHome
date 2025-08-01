@@ -1,13 +1,8 @@
-theme = "onedark"
+theme = "vim_dark_high_contrast"
 
 [editor]
-line-number = "relative"
+bufferline = "always"
 mouse = false
-
-[editor.cursor-shape]
-insert = "bar"
-normal = "block"
-select = "underline"
 
 [editor.file-picker]
 hidden = false
