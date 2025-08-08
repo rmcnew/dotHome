@@ -1,5 +1,6 @@
 #!/bin/env bash
 cd $HOME
+ln -f -s .dotHome/.gitconfig
 ln -f -s .dotHome/.zshrc
 ln -f -s .dotHome/.vimrc
 ln -f -s .dotHome/.screenrc

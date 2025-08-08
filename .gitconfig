@@ -1,0 +1,26 @@
+[user]
+	email = scott.mcnew@canonical.com
+	name = Richard Scott McNew
+[gitubuntu]
+	lpuser = richard-scott-mcnew
+[log]
+    decorate = short
+[commit]
+    verbose = true
+[merge]
+    summary = true
+    stat = true
+	tool = vimdiff
+[core]
+    whitespace = trailing-space,space-before-tab
+
+[diff "ruby"]
+    funcname = "^ *\\(\\(def\\) .*\\)"
+[diff "image"]
+    textconv = identify
+[url "git+ssh://richard-scott-mcnew@git.launchpad.net/"]
+    insteadof = lp:
+[diff]
+	tool = vimdiff
+[alias]
+	vimdiff = difftool -t vimdiff -y
