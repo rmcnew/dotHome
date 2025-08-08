@@ -1,7 +1,6 @@
-theme = "onedark"
+theme = "vim_dark_high_contrast"
 
 [editor]
-line-number = "relative"
 mouse = false
 
 [editor.cursor-shape]
@@ -12,3 +11,8 @@ select = "underline"
 [editor.file-picker]
 hidden = false
 
+[keys.insert]
+esc = ["collapse_selection", "normal_mode"]
+
+[keys.normal]
+esc = ["collapse_selection", "normal_mode"]
