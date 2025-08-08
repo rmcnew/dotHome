@@ -1,0 +1,11 @@
+[DEFAULT]
+default_host_main = unspecified
+
+[unspecified]
+fqdn = SPECIFY.A.TARGET
+incoming = /
+
+[ppa]
+fqdn            = ppa.launchpad.net
+method          = ftp
+incoming        = ~%(ppa)s/ubuntu

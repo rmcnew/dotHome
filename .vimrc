@@ -16,7 +16,7 @@ else
 endif
 
 syntax on
-colorscheme torte
+colorscheme koehler
 set autoindent            " always set autoindenting on
 set backspace=2           " allow backspacing over everything in insert mode
 set cindent shiftwidth=4  " Same thing with cindent
