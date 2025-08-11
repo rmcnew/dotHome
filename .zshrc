@@ -37,15 +37,11 @@ export VISUAL='vim'
 export ZLS_COLORS="$LS_COLORS"
 export SCREENRC=~/.screenrc
 export COLORFGBG="default;default"
-export CUDA_BASE="/usr/local/cuda"
-SYSTEM_BINS="/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin"
-CUDA_BIN="$CUDA_BASE/bin"
-CARGO_BIN="$HOME/.cargo/bin"
-GO_BIN="$HOME/opt/go/bin"
-export PATH="$HOME/bin:$CARGO_BIN:$GO_BIN:$SYSTEM_BINS:$CUDA_BIN:$PATH"
-export LD_LIBRARY_PATH="$CUDA_BASE/lib64:$LD_LIBRARY_PATH"
-export C_INCLUDE_PATH="$CUDA_BASE/include:$C_INCLUDE_PATH"
-export CPLUS_INCLUDE_PATH="$CUDA_BASE/include:$CPLUS_INCLUDE_PATH"
+export PATH="$HOME/bin:/snap/bin:$PATH"
+export DEBFULLNAME="Richard Scott McNew"
+export DEBEMAIL="scott.mcnew@canonical.com"
+export DEBSIGN_PROGRAM="/bin/gpg"
+export DEBSIGN_KEY_ID="EE7615637174E222B64E10675085CAD223AD488F"
 unset SSH_ASKPASS
 unset GIT_ASKPASS
 
