@@ -42,6 +42,7 @@ export DEBFULLNAME="Richard Scott McNew"
 export DEBEMAIL="scott.mcnew@canonical.com"
 export DEBSIGN_PROGRAM="/bin/gpg"
 export DEBSIGN_KEY_ID="EE7615637174E222B64E10675085CAD223AD488F"
+export GPG_TTY=$(tty)
 unset SSH_ASKPASS
 unset GIT_ASKPASS
 

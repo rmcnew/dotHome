@@ -21,11 +21,14 @@ $purge_build_deps = 'successful';
 
 # Directory for chroot symlinks and sbuild logs.  Defaults to the
 # current directory if unspecified.
-my USERNAME = "$ENV{USER}";
-$build_dir = "/home/${USER}/work/schroot/build";
+my $USERNAME = "$ENV{USER}";
+$build_dir = "/home/${USERNAME}/work/schroot/build";
 
 # Directory for writing build logs to
-$log_dir = '/home/${USER}/work/schroot/logs';
+$log_dir = '/home/${USERNAME}/work/schroot/logs';
+
+# Debian is moving to 'unshare' mode
+$chroot_mode = "unshare";
 
 # don't remove this, Perl needs it:
 1;
