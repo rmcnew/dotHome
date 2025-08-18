@@ -20,7 +20,10 @@
     textconv = identify
 [url "git+ssh://richard-scott-mcnew@git.launchpad.net/"]
     insteadof = lp:
+[url "git+ssh://richard-scott-mcnew@git.launchpad.net/"]
+    insteadof = https://git.launchpad.net
 [diff]
-	tool = vimdiff
+	tool = meld
 [alias]
 	vimdiff = difftool -t vimdiff -y
+    melddiff = difftool -t meld

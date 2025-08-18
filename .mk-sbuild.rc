@@ -6,5 +6,8 @@ preserve-environment=true"
 # updates after each release of Ubuntu
 SKIP_UPDATES="1"
 SKIP_PROPOSED="1"
+EATMYDATA="1"
+CCACHE="1"
+CCACHE_SIZE="64G"
 # if you have e.g. apt-cacher-ng around
 DEBOOTSTRAP_PROXY=http://127.0.0.1:3142/
