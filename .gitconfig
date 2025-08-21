@@ -27,3 +27,5 @@
 [alias]
 	vimdiff = difftool -t vimdiff -y
     melddiff = difftool -t meld
+[init]
+	defaultBranch = main
