@@ -18,6 +18,8 @@ $run_lintian = 1;
 # Don't clean the source
 $clean_source = 0;
 
+$verbose = 1;
+
 $build_dir = '/home/rmcnew/work/schroot/build';
 $build_environment = {
     'DEB_BUILD_OPTIONS' => 'parallel=16'

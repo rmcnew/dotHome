@@ -41,7 +41,7 @@ export PATH="$HOME/bin:$HOME/.cargo/bin:/snap/bin:$PATH"
 export DEBFULLNAME="Richard Scott McNew"
 export DEBEMAIL="scott.mcnew@canonical.com"
 export DEBSIGN_PROGRAM="/bin/gpg"
-export DEBSIGN_KEY_ID="EE7615637174E222B64E10675085CAD223AD488F"
+export DEBSIGN_KEYID="EE7615637174E222B64E10675085CAD223AD488F"
 export DEB_BUILD_OPTIONS="parallel=$(($(nproc)/2))"
 export GPG_TTY=$(tty)
 unset SSH_ASKPASS
