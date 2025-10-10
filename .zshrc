@@ -27,6 +27,7 @@ alias cmakegbrt='cmake -B build -DCMAKE_BUILD_TYPE=Release && cmake --build buil
 alias clangwasm='clang --target=wasm32 -nostdlib -Wl,--no-entry -Wl,--export-all'
 alias cbr='cargo build --release'
 alias cbrw='cargo build --release --target wasm32-unknown-unknown'
+alias grs='git remote --verbose show'
 
 #### exports ####
 # generic #
@@ -46,6 +47,13 @@ export DEB_BUILD_OPTIONS="parallel=$(($(nproc)/2))"
 export GPG_TTY=$(tty)
 unset SSH_ASKPASS
 unset GIT_ASKPASS
+
+# Ubuntu architecture targets
+export UB_ARCH_TARGETS=("amd64" "arm64" "armhf" "ppc64el" "riscv64" "s390x")
+# Ubuntu LTS releases with Rust needs
+export UB_LTS_RELEASES=("noble" "jammy")
+# Current Ubuntu non-LTS releases
+export UB_NON_LTS_RELEASES=("plucky" "questing")
 
 
 #### zsh key bindings ####
