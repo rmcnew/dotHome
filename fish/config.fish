@@ -41,11 +41,11 @@ set -gx DEB_BUILD_OPTIONS "parallel=$(math "$(nproc) / 2")"
 set -gx GPG_TTY $(tty)
 
 # Ubuntu architecture targets
-set -gx UB_ARCH_TARGETS "amd64" "arm64" "armhf" "ppc64el" "riscv64" "s390x"
+set -gx UB_ARCH_TARGETS amd64 arm64 armhf ppc64el riscv64 s390x
 # Ubuntu LTS releases with Rust needs
-set -gx UB_LTS_RELEASES "noble" "jammy"
+set -gx UB_LTS_RELEASES noble jammy
 # Current Ubuntu non-LTS releases
-set -gx UB_NON_LTS_RELEASES "plucky" "questing"
+set -gx UB_NON_LTS_RELEASES plucky questing
 
 # useful web functions adapted from https://github.com/dmi3/fish/blob/master/web.fish
 alias external-ip='curl ifconfig.co'
@@ -55,9 +55,9 @@ alias weather='curl wttr.in'
 alias randomfact='curl -s https://uselessfacts.jsph.pl/api/v2/facts/random | jq .text'
 
 # other useful functions
-function random-text --description "Generate random text" --argument-names 'length'
-  test -n "$length"; or set length 18
-  head /dev/urandom | tr -dc "[:alnum:]~!#\$%^&*-+=?./|" | head -c $length | tee /dev/tty | xclip -sel clip; and echo -e "\ncopied to clipboard"
+function random-text --description "Generate random text" --argument-names length
+    test -n "$length"; or set length 18
+    head /dev/urandom | tr -dc "[:alnum:]~!#\$%^&*-+=?./|" | head -c $length | tee /dev/tty | xclip -sel clip; and echo -e "\ncopied to clipboard"
 end
 
 # set theme
@@ -74,22 +74,25 @@ function fish_prompt
     set_color --bold
 
     set __git_status (git status 2> /dev/null | head -1)
-    
+
     # Full path + git trimmed to width of terminal
     set prompt_width (math (pwd | string length) + (string length "$__git_status") + 7)
     if test $prompt_width -gt $COLUMNS
-      echo -n […(pwd | string sub -s (math $prompt_width - $COLUMNS + 4))"❯ "
+        echo -n […(pwd | string sub -s (math $prompt_width - $COLUMNS + 4))"❯ "
     else
-      echo -n [(pwd)"❯ "
+        echo -n [(pwd)"❯ "
     end
-    
+
     # Git stuff    
     if [ $__git_status!="" ]
-        string match -q "On branch *" "$__git_status"; 
-          and string replace "On branch " "⌥" "$__git_status" | read -l __git_status;
-          and set_color A6E22E;
-          or set_color FD971F;
-        
+        string match -q "On branch *" "$__git_status"
+
+        and string replace "On branch " "⌥ " "$__git_status" | read -l __git_status
+
+        and set_color A6E22E
+
+        or set_color FD971F
+
         echo -n $__git_status
 
         # Need git 2.17.0+
@@ -99,4 +102,3 @@ function fish_prompt
 
     set -q __ssh && echo -n '🖧  ' || echo -n '➤ '
 end
-

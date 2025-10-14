@@ -3,12 +3,72 @@ theme = "vim_dark_high_contrast"
 [editor]
 bufferline = "always"
 mouse = false
+trim-trailing-whitespace = true
+end-of-line-diagnostics = "hint"
+color-modes = true
+#rainbow-brackets = true  # turn on after it is released
+
+[editor.inline-diagnostics]
+cursor-line = "warning"
 
 [editor.file-picker]
 hidden = false
 
+[editor.indent-guides]
+render = true
+character = "|"
+skip-levels = 0
+
 [keys.insert]
 esc = ["collapse_selection", "normal_mode"]
 
+[keys.select]
+0 = "goto_line_start"
+"$" = "goto_line_end"
+"^" = "goto_first_nonwhitespace"
+G = "goto_file_end"
+D = ["extend_to_line_bounds", "delete_selection", "normal_mode"]
+k = ["extend_line_up", "extend_to_line_bounds"]
+j = ["extend_line_down", "extend_to_line_bounds"]
+
 [keys.normal]
-esc = ["collapse_selection", "normal_mode"]
+D = ["ensure_selections_forward", "extend_to_line_end", "delete_selection"]
+0 = "goto_line_start"
+"$" = "goto_line_end"
+"^" = "goto_first_nonwhitespace"
+G = "goto_file_end"
+V = ["select_mode", "extend_to_line_bounds"]
+esc = ["collapse_selection", "keep_primary_selection"]
+
+[keys.normal."+"]
+f = ":format"
+w = ":toggle whitespace.render all"
+W = ":set whitespace.render none"
+s = ":toggle soft-wrap.enable"
+
+[editor.statusline]
+left = [
+  "mode",
+  "spinner",
+  "version-control",
+  "spacer",
+  "separator",
+  "file-name",
+  "read-only-indicator",
+  "file-modification-indicator",
+
+]
+center = []
+right = [
+  "diagnostics",
+  "workspace-diagnostics",
+  "position",
+  "total-line-numbers",
+  "position-percentage",
+  "file-encoding",
+  "file-line-ending",
+  "file-type",
+  "register",
+  "selections",
+]
+separator = "│"

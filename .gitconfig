@@ -13,6 +13,10 @@
 	tool = vimdiff
 [core]
     whitespace = trailing-space,space-before-tab
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
 
 [diff "ruby"]
     funcname = "^ *\\(\\(def\\) .*\\)"
@@ -27,5 +31,9 @@
 [alias]
 	vimdiff = difftool -t vimdiff -y
     melddiff = difftool -t meld
+    deltadiff = difftool -t delta
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    dark = true  # dark mode
 [init]
 	defaultBranch = main
