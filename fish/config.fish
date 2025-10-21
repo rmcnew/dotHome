@@ -43,9 +43,58 @@ set -gx GPG_TTY $(tty)
 # Ubuntu architecture targets
 set -gx UB_ARCH_TARGETS amd64 arm64 armhf ppc64el riscv64 s390x
 # Ubuntu LTS releases with Rust needs
-set -gx UB_LTS_RELEASES noble jammy
+set -gx UB_LTS_RELEASES resolute noble jammy
 # Current Ubuntu non-LTS releases
 set -gx UB_NON_LTS_RELEASES plucky questing
+set -gx UB_RELEASES $UB_LTS_RELEASES $UB_NON_LTS_RELEASES
+
+# confirm function
+function confirm
+    read -l response -P "$argv[1] (y/N) "
+    switch $response
+        case y Y
+            return 0
+        case '*'
+            return 1
+    end
+end
+
+# schroot / sbuild functions
+function verbose-sbuild
+    DEB_BUILD_OPTIONS=verbose sbuild --verbose --debug $argv
+end
+
+function sbuild-purge
+    if test -d debian
+        quilt pop -a 2>/dev/null || echo "No patches applied"
+        schroot -e --all-sessions
+        rm -Rf /var/lib/sbuild/build/*
+        rm -vf ../*.{debian.tar.xz,dsc,buildinfo,changes,ppa.upload}
+        rm -vf debian/files
+        rm -Rf .pc
+    else
+        echo "This command should only be executed in a package's source directory with the build artifacts (e.g. *.ppa.upload, *.changes, etc.) in the parent directory"
+    end
+end
+
+function setup-schroots
+    for arch in $UB_ARCH_TARGETS
+        for rel in $UB_RELEASES
+            mk-sbuild --arch $arch $rel
+        end
+    end
+end
+
+function remove-schroots
+    if confirm "Really delete the schroots?"
+        echo "Ok. Deleting the schroots . . ."
+        schroot -e --all-sessions
+        sudo rm /etc/schroot/chroot.d/*
+        sudo rm -Rf /var/lib/schroot/chroots/*
+    else
+        echo "NOT deleting the schroots"
+    end
+end
 
 # useful web functions adapted from https://github.com/dmi3/fish/blob/master/web.fish
 alias external-ip='curl ifconfig.co'
@@ -62,11 +111,13 @@ end
 
 # set theme
 fish_config theme choose "ayu Dark"
+set -g fish_pager_color_selected_background --background=blue
 
 # command prompt adapted from https://github.com/dmi3/fish/blob/master/prompt.fish
 function fish_prompt
     if set -q SSH_CLIENT || set -q SSH_TTY
-        set_color 909d63 --bold;
+        set_color 909d63 --bold
+
         set __ssh true
         echo -n "[$USER@"(hostname)"]"
     end
@@ -83,7 +134,7 @@ function fish_prompt
         echo -n [(pwd)"❯ "
     end
 
-    # Git stuff    
+    # Git stuff
     if [ $__git_status!="" ]
         string match -q "On branch *" "$__git_status"
 
