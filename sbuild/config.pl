@@ -16,7 +16,7 @@ $lintian_opts = ['-i', '-I', '-E', '--pedantic'];
 $run_lintian = 1;
 
 # Don't clean the source
-$clean_source = 0;
+#$clean_source = 0;
 
 $verbose = 1;
 
@@ -55,7 +55,10 @@ $build_dir = "/home/${USERNAME}/work/schroot/build";
 # Directory for writing build logs to
 $log_dir = '/home/${USERNAME}/work/schroot/logs';
 
-
+# place for extra packages
+$extra_packages = [
+    # '/home/${USERNAME}/work/schroot/build'
+];
 
 # don't remove this, Perl needs it:
 1;

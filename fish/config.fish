@@ -32,7 +32,7 @@ set -gx LC_ALL en_US.UTF-8
 set -gx TERM xterm-256color
 set -gx EDITOR hx
 set -gx VISUAL hx
-set -gx PATH "$HOME/bin:$HOME/.cargo/bin:/snap/bin:$PATH"
+set -gx PATH "$HOME/bin:$HOME/.cargo/bin:/snap/bin:$HOME/go/bin:$PATH"
 set -gx DEBFULLNAME "Richard Scott McNew"
 set -gx DEBEMAIL "scott.mcnew@canonical.com"
 set -gx DEBSIGN_PROGRAM /bin/gpg
@@ -64,6 +64,18 @@ function verbose-sbuild
     DEB_BUILD_OPTIONS=verbose sbuild --verbose --debug $argv
 end
 
+function sbuild-lint
+    sbuild --run-lintian --lintian-opts="-EvIiL +pedantic" $argv
+end
+
+function sbuild-test
+    sbuild --run-autopkgtest --autopkgtest-opts="-l " $argv
+end
+
+function sbuild-lint-test
+    sbuild --run-lintian --lintian-opts="-EvIiL +pedantic" --run-autopkgtest --autopkgtest-opts="-l "$argv
+end
+
 function sbuild-purge
     if test -d debian
         quilt pop -a 2>/dev/null || echo "No patches applied"
@@ -81,6 +93,14 @@ function setup-schroots
     for arch in $UB_ARCH_TARGETS
         for rel in $UB_RELEASES
             mk-sbuild --arch $arch $rel
+        end
+    end
+end
+
+function update-schroots
+    for arch in $UB_ARCH_TARGETS
+        for rel in $UB_RELEASES
+            sbuild-update -udc "$rel-$arch"
         end
     end
 end
