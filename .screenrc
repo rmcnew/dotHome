@@ -11,7 +11,7 @@ activity "Activity in %t(%n)"
 nonblock on
 nethack on
 multiuser on
-shelltitle "zsh"
+shelltitle "fish"
 escape ``
 bind h prev
 bind l next
@@ -27,14 +27,14 @@ bind q
 bind ^S
 bind s
 # create default windows
-screen -t zsh zsh
-screen -t zsh zsh
-screen -t zsh zsh
-screen -t zsh zsh
-screen -t zsh zsh
-screen -t zsh zsh
-screen -t zsh zsh
-screen -t zsh zsh
-screen -t zsh zsh
-screen -t zsh zsh
+screen -t fish fish
+screen -t fish fish
+screen -t fish fish
+screen -t fish fish
+screen -t fish fish
+screen -t fish fish
+screen -t fish fish
+screen -t fish fish
+screen -t fish fish
+screen -t fish fish
 select 0
