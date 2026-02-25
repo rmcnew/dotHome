@@ -25,6 +25,8 @@ alias cbr='cargo build --release'
 alias cbrw='cargo build --release --target wasm32-unknown-unknown'
 alias ct='cargo test'
 alias grs='git remote --verbose show'
+alias rustc='rustc-1.89'
+alias cargo='cargo-1.89'
 
 # exports
 set -gx LANG en_US.UTF-8
@@ -114,6 +116,36 @@ function remove-schroots
     else
         echo "NOT deleting the schroots"
     end
+end
+
+function setup-sbuild-qemus
+    sudo mkdir -p /srv/sbuild/qemu
+    sudo apt install -y sbuild-qemu
+    for arch in $UB_ARCH_TARGETS
+        for rel in $UB_RELEASES
+            if test $arch = "amd64"
+                sudo sbuild-qemu-create -o /srv/sbuild/qemu/$rel-autopkgtest-$arch.img --arch $arch $rel http://archive.ubuntu.com/ubuntu
+            else  # armhf, arm64, ppc64el
+                sudo sbuild-qemu-create -o /srv/sbuild/qemu/$rel-autopkgtest-$arch.img --arch $arch $rel http://ports.ubuntu.com/ubuntu-ports
+            end
+        end
+    end
+end
+
+function update-sbuild-qemus
+    for arch in $UB_ARCH_TARGETS
+        for rel in $UB_RELEASES
+            sudo sbuild-qemu-update /srv/sbuild/qemu/$rel-autopkgtest-$arch.img 
+        end
+    end
+end
+
+function boot-sbuild-qemu-ro -a release architecture
+    sbuild-qemu-boot /srv/sbuild/qemu/$release-autopkgtest-$architecture.img
+end
+
+function boot-sbuild-qemu-rw -a release architecture
+    sudo sbuild-qemu-boot --read-write /srv/sbuild/qemu/$release-autopkgtest-$architecture.img
 end
 
 # useful web functions adapted from https://github.com/dmi3/fish/blob/master/web.fish
