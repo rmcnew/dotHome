@@ -25,8 +25,8 @@ alias cbr='cargo build --release'
 alias cbrw='cargo build --release --target wasm32-unknown-unknown'
 alias ct='cargo test'
 alias grs='git remote --verbose show'
-alias rustc='rustc-1.89'
-alias cargo='cargo-1.89'
+alias rustc='rustc-1.91'
+alias cargo='cargo-1.91'
 
 # exports
 set -gx LANG en_US.UTF-8
@@ -59,6 +59,11 @@ function confirm
         case '*'
             return 1
     end
+end
+
+function timestamp
+    set formatted_timestamp (date +"%FT%T.%N")
+    echo "$formatted_timestamp"
 end
 
 # schroot / sbuild functions
@@ -146,6 +151,11 @@ end
 
 function boot-sbuild-qemu-rw -a release architecture
     sudo sbuild-qemu-boot --read-write /srv/sbuild/qemu/$release-autopkgtest-$architecture.img
+end
+
+function aptest -a release
+    set formatted_timestamp (date +"%FT%T.%N")
+    autopkgtest --log-file "autopkgtest_$formatted_timestamp.log"  -U -- podman ubuntu:$release
 end
 
 # useful web functions adapted from https://github.com/dmi3/fish/blob/master/web.fish
