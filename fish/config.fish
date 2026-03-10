@@ -32,8 +32,8 @@ alias cargo='cargo-1.91'
 set -gx LANG en_US.UTF-8
 set -gx LC_ALL en_US.UTF-8
 set -gx TERM xterm-256color
-set -gx EDITOR hx
-set -gx VISUAL hx
+set -gx EDITOR vim
+set -gx VISUAL vim
 set -gx PATH "$HOME/bin:$HOME/.cargo/bin:/snap/bin:$HOME/go/bin:$PATH"
 set -gx DEBFULLNAME "Richard Scott McNew"
 set -gx DEBEMAIL "scott.mcnew@canonical.com"
