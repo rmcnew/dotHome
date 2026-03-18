@@ -1,1 +1,4 @@
 shell = "fish"
+
+[colors.primary]
+background = "#000000"
