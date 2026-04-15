@@ -1,6 +1,7 @@
 [user]
 	email = scott.mcnew@canonical.com
 	name = Richard Scott McNew
+	signingkey = EE7615637174E222B64E10675085CAD223AD488F
 [gitubuntu]
 	lpuser = richard-scott-mcnew
 [log]

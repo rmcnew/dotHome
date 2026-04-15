@@ -9,7 +9,7 @@ alias curscreen='screen -x mcnew-desktop'
 alias newtmux="tmux new-session -s mcnew-desktop"
 alias curtmux="tmux new-session -t mcnew-desktop -s $fish_pid"
 alias wgrab='wget --random-wait -E -r -k -p -np '
-alias update='sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove'
+alias update='sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove && sudo snap refresh'
 alias pdf2word='libreoffice --invisible --infilter="writer_pdf_import" --convert-to docx:"MS Word 2007 XML"'
 alias ytdlx='yt-dlp -x --audio-format mp3'
 alias cmakeg='cmake -B build'
@@ -25,8 +25,6 @@ alias cbr='cargo build --release'
 alias cbrw='cargo build --release --target wasm32-unknown-unknown'
 alias ct='cargo test'
 alias grs='git remote --verbose show'
-alias rustc='rustc-1.91'
-alias cargo='cargo-1.91'
 
 # exports
 set -gx LANG en_US.UTF-8
@@ -34,7 +32,8 @@ set -gx LC_ALL en_US.UTF-8
 set -gx TERM xterm-256color
 set -gx EDITOR vim
 set -gx VISUAL vim
-set -gx PATH "$HOME/bin:$HOME/.cargo/bin:/snap/bin:$HOME/go/bin:$PATH"
+set -gx LATEST_RUST_BIN "/usr/lib/rust-1.91/bin"
+set -gx PATH "$HOME/bin:$HOME/.cargo/bin:/snap/bin:$HOME/go/bin:$LATEST_RUST_BIN:$PATH"
 set -gx DEBFULLNAME "Richard Scott McNew"
 set -gx DEBEMAIL "scott.mcnew@canonical.com"
 set -gx DEBSIGN_PROGRAM /bin/gpg
