@@ -190,9 +190,9 @@ function fish_prompt
     # Full path + git trimmed to width of terminal
     set prompt_width (math (pwd | string length) + (string length "$__git_status") + 7)
     if test $prompt_width -gt $COLUMNS
-        echo -n […(pwd | string sub -s (math $prompt_width - $COLUMNS + 4))"❯ "
+        echo -n […(pwd | string sub -s (math $prompt_width - $COLUMNS + 4))]" "
     else
-        echo -n [(pwd)"❯ "
+        echo -n [(pwd)]" "
     end
 
     # Git stuff
