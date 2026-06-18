@@ -30,9 +30,9 @@ alias grs='git remote --verbose show'
 set -gx LANG en_US.UTF-8
 set -gx LC_ALL en_US.UTF-8
 set -gx TERM xterm-256color
-set -gx EDITOR vim
-set -gx VISUAL vim
-set -gx LATEST_RUST_BIN "/usr/lib/rust-1.91/bin"
+set -gx EDITOR hx
+set -gx VISUAL hx
+set -gx LATEST_RUST_BIN /usr/lib/rust-latest/bin
 set -gx PATH "$HOME/bin:$HOME/.cargo/bin:/snap/bin:$HOME/go/bin:$LATEST_RUST_BIN:$PATH"
 set -gx DEBFULLNAME "Richard Scott McNew"
 set -gx DEBEMAIL "scott.mcnew@canonical.com"
@@ -46,7 +46,7 @@ set -gx UB_ARCH_TARGETS amd64 arm64 armhf ppc64el riscv64 s390x
 # Ubuntu LTS releases with Rust needs
 set -gx UB_LTS_RELEASES resolute noble jammy
 # Current Ubuntu non-LTS releases
-set -gx UB_NON_LTS_RELEASES plucky questing
+set -gx UB_NON_LTS_RELEASES plucky questing stonking
 set -gx UB_RELEASES $UB_LTS_RELEASES $UB_NON_LTS_RELEASES
 
 # confirm function
@@ -85,8 +85,8 @@ end
 function sbuild-purge
     if test -d debian
         quilt pop -a 2>/dev/null || echo "No patches applied"
-        schroot -e --all-sessions
-        rm -Rf /var/lib/sbuild/build/*
+        #schroot -e --all-sessions
+        #rm -Rf /var/lib/sbuild/build/*
         rm -vf ../*.{debian.tar.xz,dsc,buildinfo,changes,ppa.upload}
         rm -vf debian/files
         rm -Rf .pc
@@ -127,9 +127,9 @@ function setup-sbuild-qemus
     sudo apt install -y sbuild-qemu
     for arch in $UB_ARCH_TARGETS
         for rel in $UB_RELEASES
-            if test $arch = "amd64"
+            if test $arch = amd64
                 sudo sbuild-qemu-create -o /srv/sbuild/qemu/$rel-autopkgtest-$arch.img --arch $arch $rel http://archive.ubuntu.com/ubuntu
-            else  # armhf, arm64, ppc64el
+            else # armhf, arm64, ppc64el
                 sudo sbuild-qemu-create -o /srv/sbuild/qemu/$rel-autopkgtest-$arch.img --arch $arch $rel http://ports.ubuntu.com/ubuntu-ports
             end
         end
@@ -139,7 +139,7 @@ end
 function update-sbuild-qemus
     for arch in $UB_ARCH_TARGETS
         for rel in $UB_RELEASES
-            sudo sbuild-qemu-update /srv/sbuild/qemu/$rel-autopkgtest-$arch.img 
+            sudo sbuild-qemu-update /srv/sbuild/qemu/$rel-autopkgtest-$arch.img
         end
     end
 end
@@ -154,7 +154,7 @@ end
 
 function aptest -a release
     set formatted_timestamp (date +"%FT%T.%N")
-    autopkgtest --log-file "autopkgtest_$formatted_timestamp.log"  -U -- podman ubuntu:$release
+    autopkgtest --log-file "autopkgtest_$formatted_timestamp.log" -U -- podman ubuntu:$release
 end
 
 # useful web functions adapted from https://github.com/dmi3/fish/blob/master/web.fish
