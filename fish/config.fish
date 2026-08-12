@@ -170,6 +170,11 @@ function random-text --description "Generate random text" --argument-names lengt
     head /dev/urandom | tr -dc "[:alnum:]~!#\$%^&*-+=?./|" | head -c $length | tee /dev/tty | xclip -sel clip; and echo -e "\ncopied to clipboard"
 end
 
+function fix_nvidia
+    sudo apt remove --purge 'nvidia-*' 'linux-modules-nvidia-*'
+    sudo ubuntu-drivers install
+end
+
 # set theme
 fish_config theme choose "ayu Dark"
 set -g fish_pager_color_selected_background --background=blue
