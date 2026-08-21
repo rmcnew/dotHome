@@ -32,8 +32,7 @@ set -gx LC_ALL en_US.UTF-8
 set -gx TERM xterm-256color
 set -gx EDITOR hx
 set -gx VISUAL hx
-set -gx LATEST_RUST_BIN /usr/lib/rust-latest/bin
-set -gx PATH "$HOME/bin:$HOME/.cargo/bin:/snap/bin:$HOME/go/bin:$LATEST_RUST_BIN:$PATH"
+set -gx PATH "$HOME/bin:$HOME/.cargo/bin:/snap/bin:$HOME/go/bin:$HOME/util/devcontainers/bin:$PATH"
 set -gx DEBFULLNAME "Richard Scott McNew"
 set -gx DEBEMAIL "scott.mcnew@canonical.com"
 set -gx DEBSIGN_PROGRAM /bin/gpg
@@ -170,7 +169,7 @@ function random-text --description "Generate random text" --argument-names lengt
     head /dev/urandom | tr -dc "[:alnum:]~!#\$%^&*-+=?./|" | head -c $length | tee /dev/tty | xclip -sel clip; and echo -e "\ncopied to clipboard"
 end
 
-function fix_nvidia
+function fix-nvidia
     sudo apt remove --purge 'nvidia-*' 'linux-modules-nvidia-*'
     sudo ubuntu-drivers install
 end
