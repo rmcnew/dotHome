@@ -6,6 +6,7 @@ mouse = false
 trim-trailing-whitespace = true
 end-of-line-diagnostics = "hint"
 color-modes = true
+soft-wrap.enable = true
 #rainbow-brackets = true  # turn on after it is released
 
 [editor.inline-diagnostics]
