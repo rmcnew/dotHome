@@ -170,7 +170,7 @@ function random-text --description "Generate random text" --argument-names lengt
 end
 
 function fix-nvidia
-    sudo apt remove --purge 'nvidia-*' 'linux-modules-nvidia-*'
+    sudo apt remove -y --purge 'nvidia-*' 'linux-modules-nvidia-*'
     sudo ubuntu-drivers install
 end
 
