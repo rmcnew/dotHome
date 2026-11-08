@@ -14,3 +14,4 @@ cd $HOME/.config
 ln -f -s $HOME/.dotHome/helix 
 ln -f -s $HOME/.dotHome/sbuild
 ln -f -s $HOME/.dotHome/fish
+ln -f -s $HOME/.dotHome/alacritty
